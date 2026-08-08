@@ -24,14 +24,12 @@ export const getExpenses = async(req, res) => {
             case 'past month': {
                 const d = new Date(now);
                 d.setMonth(d.getMonth() - 1)
-                console.log(new Date(d))
                 time = d;
                 break
             }
             case 'last 3 month':{
                 const d = new Date(now)
                 d.setMonth(d.getMonth() - 3)
-                console.log(new Date(d))
                 time = d
                 break
             }
@@ -86,11 +84,9 @@ export const deleteExpense = async(req, res) => {
 export const updateExpense = async(req, res) => {
     const { description, amount, category } = req.body
     const {id} = req.params
-    console.log(typeof(id))
     try{
         const expense = await Expense.findOne({ _id: id })
-        if(!expense) return res.status(404).json({ messge: 'Expense not found' })
-        console.log(expense)
+        if(!expense) return res.status(404).json({ message: 'Expense not found' })
         if(expense.user.toString() !== req.user.id){
             return res.status(403).json({ message: 'Not authorized for this expense' })
         }

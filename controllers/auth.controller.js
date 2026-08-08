@@ -79,3 +79,18 @@ export const refreshToken = async(req, res) => {
         return res.status(403).json({ error: 'Forbidden' })
     }
 }
+
+export const logout = async(req, res) => {
+    try{
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict'
+        })
+
+        return res.status(200).json({ message: 'logged out seccussfully' })
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({ errro: 'Something went wrong' })
+    }
+}

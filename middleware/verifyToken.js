@@ -5,9 +5,12 @@ configDotenv()
 
 export const verifyToken = async(req, res, next) => {
     try{
-        const token = req.headers.split(' ')[1]
-        const validToken = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        req.user = validToken
+        const token = req.headers['authorization']?.split(' ')[1]
+        if(!token){
+            return res.status(401).json({ message: 'UnAuthorized' })
+        }
+        const decode = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        req.user = decode
         next()
     }catch(err){
         console.log(err)

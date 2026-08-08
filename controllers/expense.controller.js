@@ -15,10 +15,6 @@ export const getExpenses = async(req, res) => {
     }else{
         
         switch (filteredTime) {
-            case 'current': {
-                time = {$gt: new Date(now.getFullYear(), now.getMonth(), 1)}
-                break;
-            }
             case 'past week':{
                 const d = new Date(now)
                 d.setDate(d.getDate() - 7)

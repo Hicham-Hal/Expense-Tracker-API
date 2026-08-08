@@ -3,7 +3,7 @@ import Expense from "../models/Expense.model.js"
 export const getExpenses = async(req, res) => {
     const {filter, start, end} = req.query
     const filteredTime = filter?.toLowerCase()
-    const now = new Date().getTime()
+    const now = new Date()
     let time;
     let query = {}
     if(start || end){

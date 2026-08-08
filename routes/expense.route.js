@@ -6,9 +6,9 @@ import { verifyToken } from "../middleware/verifyToken.js";
 
 const route = express.Router()
 
-route.get('/',  verifyToken, expenseUpValidator, validate, getExpenses)
+route.get('/',  verifyToken, getExpenses)
 route.post('/', verifyToken, expenseAddValidator, validate, setExpense)
 route.delete('/:id', verifyToken, deleteExpense)
-route.put('/:id', verifyToken, updateExpense)
+route.put('/:id', verifyToken, expenseUpValidator, validate, updateExpense)
 
 export default route
